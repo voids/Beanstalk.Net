@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beanstalk.Net", "Beanstalk.Net\Beanstalk.Net.csproj", "{38B8E0F8-38B5-4DE3-AE1A-15FAF59FBDC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beanstalk.Test", "Beanstalk.Test\Beanstalk.Test.csproj", "{44ABD071-736B-492C-A33E-4EBE881538A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beanstalk.Sample", "Beanstalk.Sample\Beanstalk.Sample.csproj", "{9C45CA13-ABA9-4716-AFDA-D3887E9EA7F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38B8E0F8-38B5-4DE3-AE1A-15FAF59FBDC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38B8E0F8-38B5-4DE3-AE1A-15FAF59FBDC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B8E0F8-38B5-4DE3-AE1A-15FAF59FBDC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38B8E0F8-38B5-4DE3-AE1A-15FAF59FBDC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44ABD071-736B-492C-A33E-4EBE881538A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44ABD071-736B-492C-A33E-4EBE881538A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44ABD071-736B-492C-A33E-4EBE881538A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44ABD071-736B-492C-A33E-4EBE881538A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C45CA13-ABA9-4716-AFDA-D3887E9EA7F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C45CA13-ABA9-4716-AFDA-D3887E9EA7F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C45CA13-ABA9-4716-AFDA-D3887E9EA7F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C45CA13-ABA9-4716-AFDA-D3887E9EA7F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
