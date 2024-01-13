@@ -16,7 +16,8 @@ protected async Task AfterBooking(Order order) {
     await beanstalk.Issue(new UseTube("payment-check").OnUsing(null));
     // write order id as bytes
     var data = BitConverter.GetBytes(order.Id);
-    var putCmd = new Put(data).OnInserted(async id => {
+    // after 15 minitues, told consumer check payment
+    var putCmd = new Put(data).SetDelay(TimeSpan.FromMinutes(15)).OnInserted(async id => {
         _logger.LogDebug("Put ==> Job <{id}>", id);
         // do sth async...
     });
