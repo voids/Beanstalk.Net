@@ -16,7 +16,7 @@ protected async Task AfterBooking(Order order) {
     await beanstalk.Issue(new UseTube("payment-check").OnUsing(null));
     // write order id as bytes
     var data = BitConverter.GetBytes(order.Id);
-    // after 15 minitues, told consumer check payment
+    // tell the consumer to check the payment status after 15 minutes
     var putCmd = new Put(data).SetDelay(TimeSpan.FromMinutes(15)).OnInserted(async id => {
         _logger.LogDebug("Put ==> Job <{id}>", id);
         // do sth async...
@@ -32,7 +32,7 @@ protected override async Task ExecuteAsync(CancellationToken token) {
     while (!token.IsCancellationRequested) {
         try {
             var reserve = new Reserve(30).OnReserved(async (id, data) => {
-                // convert data to order id 
+                // convert bytes to order id 
                 var orderId = BitConverter.ToInt64(data, 0);
                 _logger.LogDebug("Reserve ==> job <{id}>", id);
                 // close order if not paid
