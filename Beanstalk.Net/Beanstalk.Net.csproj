@@ -4,7 +4,8 @@
         <TargetFramework>netstandard2.0</TargetFramework>
 
         <Description>Beanstalkd C# client based on .NET Standard 2.0</Description>
-        <Version>1.0.1</Version>
+        <Authors>voids</Authors>
+        <Version>1.0.2</Version>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/voids/Beanstalk.Net</PackageProjectUrl>
         <RepositoryType>git</RepositoryType>
