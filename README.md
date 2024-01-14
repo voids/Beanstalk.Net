@@ -28,7 +28,7 @@ protected async Task AfterBooking(Order order) {
 Consume
 ```csharp
 protected override async Task ExecuteAsync(CancellationToken token) {
-    await beanstalk.Watch("payment-check");
+    await beanstalk.Issue(new WatchTube("payment-check").OnWatching(null));
     while (!token.IsCancellationRequested) {
         try {
             var reserve = new Reserve(30).OnReserved(async (id, data) => {
