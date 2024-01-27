@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 
@@ -45,12 +46,13 @@ namespace Beanstalk.Net {
         /// Issue a command to beanstalkd
         /// </summary>
         /// <param name="command"></param>
-        public async Task Issue(IBeanstalkCommand command) {
+        /// <param name="token"></param>
+        public async Task Issue(IBeanstalkCommand command, CancellationToken token = default) {
             foreach (var buffer in command.Provide()) {
-                await _stream.WriteAsync(buffer, 0, buffer.Length);
-                await _stream.WriteAsync(Delimiter, 0, Delimiter.Length);
+                await _stream.WriteAsync(buffer, 0, buffer.Length, token);
+                await _stream.WriteAsync(Delimiter, 0, Delimiter.Length, token);
             }
-            var respond = await _stream.ReadBeanstalkHeader();
+            var respond = await _stream.ReadBeanstalkHeader(token);
             var respondStr = Enc.GetString(respond);
             var args = respondStr.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             if (args.Length == 0) throw new Exception("Server error.");
