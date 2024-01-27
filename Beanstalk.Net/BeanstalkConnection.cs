@@ -30,7 +30,7 @@ namespace Beanstalk.Net {
 
         public BeanstalkConnection(string host, ushort port) {
             _client = new TcpClient(host, port);
-            _stream = Stream.Synchronized(_client.GetStream());
+            _stream = _client.GetStream();
         }
 
         public BeanstalkConnection(Stream stream) {
@@ -48,16 +48,18 @@ namespace Beanstalk.Net {
         /// <param name="command"></param>
         /// <param name="token"></param>
         public async Task Issue(IBeanstalkCommand command, CancellationToken token = default) {
-            foreach (var buffer in command.Provide()) {
-                await _stream.WriteAsync(buffer, 0, buffer.Length, token);
-                await _stream.WriteAsync(Delimiter, 0, Delimiter.Length, token);
-            }
-            var respond = await _stream.ReadBeanstalkHeader(token);
-            var respondStr = Enc.GetString(respond);
-            var args = respondStr.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            if (args.Length == 0) throw new Exception("Server error.");
-            if (!command.Handlers.TryGetValue(args[0], out var handler)) throw new BeanstalkException(args[0]);
-            if (handler != null) await handler.Invoke(args, _stream);
+            try {
+                foreach (var buffer in command.Provide()) {
+                    await _stream.WriteAsync(buffer, 0, buffer.Length, token);
+                    await _stream.WriteAsync(Delimiter, 0, Delimiter.Length, token);
+                }
+                var respond = await _stream.ReadBeanstalkHeader(token);
+                var respondStr = Enc.GetString(respond);
+                var args = respondStr.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if (args.Length == 0) throw new Exception("Server error.");
+                if (!command.Handlers.TryGetValue(args[0], out var handler)) throw new BeanstalkException(args[0]);
+                if (handler != null) await handler.Invoke(args, _stream);
+            } catch (OperationCanceledException) { }
         }
     }
 }
